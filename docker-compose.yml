@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  nanowiki:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: nanowiki
+    container_name: nanowiki-web
+    hostname: nanowiki
+    restart: always
+    depends_on:
+      - mongodb
+    environment:
+      - HTTP_PORT=${HTTP_PORT}
+      - HTTPS_PORT=${HTTPS_PORT}
+      - MONGODB_URI=${MONGODB_URI}
+      - USE_HTTPS=${USE_HTTPS}
+    ports:
+      - ${HTTP_PORT}:${HTTP_PORT}
+      - ${HTTPS_PORT}:${HTTPS_PORT}
+  
+  mongodb:
+    image: mongo:latest
+    container_name: nanowiki-db
+    hostname: nanowiki-db
+    restart: always
+    volumes:
+      - ./volumes/mongodb:/data/db

@@ -1,0 +1,3 @@
+[submodule "nanowiki"]
+	path = nanowiki
+	url = https://github.com/keharriso/nanowiki
